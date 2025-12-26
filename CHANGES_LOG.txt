@@ -339,5 +339,161 @@ Troubleshooting
   git push -u origin main
 
 ===============================================================================
-END OF CHANGELOG (GITHUB PUSH INSTRUCTIONS ADDED)
+GIT VERIFICATION COMMANDS
+===============================================================================
+
+Check current Git status:
+  git status
+  Shows: staged files, unstaged changes, untracked files
+
+Check which files will be committed:
+  git status --short
+  Shows: M (modified), A (added), D (deleted), ?? (untracked)
+
+See what's staged for commit:
+  git diff --cached
+  Shows: actual code changes that will be committed
+
+Check commit history:
+  git log --oneline
+  Shows: list of commits (verify your commit exists)
+
+Check remote repository connection:
+  git remote -v
+  Shows: origin URL (verify it points to your GitHub repo)
+
+Preview what will be pushed:
+  git log origin/main..HEAD
+  Shows: commits that will be pushed (only works after first push)
+
+Check which branch you're on:
+  git branch
+  Shows: current branch (should show * main)
+
+Verify what's being tracked:
+  git ls-files
+  Shows: all files Git is tracking (verify .venv/ is NOT in list)
+
+Check if .gitignore is working:
+  git status
+  If .venv/ shows as untracked, run: git status --ignored
+  Should show: .venv/ under "Ignored files"
+
+After first push, verify sync status:
+  git status
+  Should show: "Your branch is up to date with 'origin/main'"
+
+View all tracked files with sizes:
+  git ls-files -s
+  Verify no large files (.pth, .pkl, database files) are tracked
+
+===============================================================================
+HOW TO IGNORE FOLDERS/FILES FROM GITHUB
+===============================================================================
+
+Step 1: Create .gitignore file
+- In project root, create: .gitignore
+- Add patterns of files/folders to ignore (one per line)
+
+Common patterns to ignore:
+  .venv/              # Virtual environment
+  __pycache__/        # Python cache
+  *.pyc               # Compiled Python files
+  .env                # Environment variables
+  *.log               # Log files
+  .vscode/            # VS Code settings
+  *.db                # Database files
+
+Step 2: If files already tracked, remove them
+- Check what's tracked:
+  git ls-files
+
+- If .venv/ or other folders show up, remove from Git:
+  git rm -r --cached .venv/
+  git rm -r --cached __pycache__/
+  
+  Note: --cached means "remove from Git, keep on disk"
+
+Step 3: Stage .gitignore and commit
+  git add .gitignore
+  git commit -m "Add .gitignore"
+
+Step 4: Verify ignored files
+  git status --ignored
+  Should show ignored files under "Ignored files" section
+
+Step 5: Push changes
+  git push
+
+===============================================================================
+QUICK COMMANDS TO IGNORE FOLDERS
+===============================================================================
+
+Create .gitignore with common ignores (PowerShell):
+  @"
+  .venv/
+  __pycache__/
+  *.pyc
+  .env
+  *.log
+  "@ | Out-File -FilePath .gitignore -Encoding utf8
+
+Remove already-tracked folders from Git:
+  git rm -r --cached .venv/
+  git rm -r --cached __pycache__/
+
+Add and commit .gitignore:
+  git add .gitignore
+  git commit -m "Add .gitignore to exclude venv and cache"
+
+Verify what's ignored:
+  git status --ignored
+
+Push to GitHub:
+  git push
+
+===============================================================================
+COMMON GITIGNORE PATTERNS EXPLAINED
+===============================================================================
+
+Pattern          Meaning
+-------          -------
+.venv/           Ignore entire .venv folder and contents
+*.pyc            Ignore all files ending with .pyc
+__pycache__/     Ignore __pycache__ folder anywhere in project
+!important.log   Exception: DO track this file (negation)
+logs/*.log       Ignore .log files only in logs/ folder
+**/temp          Ignore any folder named temp at any level
+*.py[cod]        Ignore .pyc, .pyo, .pyd files
+
+===============================================================================
+TROUBLESHOOTING GITIGNORE ISSUES
+===============================================================================
+
+Problem: .gitignore not working, files still tracked
+Solution:
+  git rm -r --cached .
+  git add .
+  git commit -m "Apply .gitignore rules"
+
+Problem: Want to ignore file but it keeps showing in git status
+Solution: File is already tracked. Remove it:
+  git rm --cached filename
+  git commit -m "Stop tracking filename"
+
+Problem: Need to see what Git is ignoring
+Solution:
+  git status --ignored
+  git check-ignore -v filename  # Check why specific file is ignored
+
+Problem: Accidentally committed .venv/ to GitHub
+Solution:
+  git rm -r --cached .venv/
+  echo ".venv/" >> .gitignore
+  git add .gitignore
+  git commit -m "Remove .venv from repository"
+  git push --force  # Only if no one else is using the repo
+
+===============================================================================
+END OF CHANGELOG (GITIGNORE GUIDE ADDED)
 ===============================================================================
