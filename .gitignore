@@ -1,7 +1,13 @@
-# ...existing code...
+
 
 # Ignore generated text files at repo root
 /CHANGES_LOG.txt
 /datasavedsuccessfully.txt
+/PILLOW_FIX_DOCUMENTATION.txt
+/requirements.txt
+/SETUP_ON_NEW_LAPTOP.txt
+/HAARCASCADE_FIX_DOCUMENTATION.txt
 
-# ...existing code...
+# Ignore all .txt files anywhere
+*.txt
+
