@@ -505,11 +505,10 @@ class Student:
             try:
                 conn=mysql.connector.connect(host="localhost",user="root",password="MYSQL@321",database="face_recognization")
                 my_cursor=conn.cursor() 
-                my_cursor.execute("SELECT * FROM student")
-                myresult=my_cursor.fetchall()
-                id=0
-                for x in myresult:
-                    id+=1
+                
+                # Use the actual Student_id from the form
+                id = self.var_std_id.get()
+                
                 my_cursor.execute(
                     "UPDATE student SET Department=%s, Course=%s, Year=%s, Semester=%s, name=%s, Division=%s, Roll=%s, Gender=%s, Dob=%s, Email=%s, Phone=%s, Address=%s, Teacher=%s, PhotoSample=%s WHERE Student_id=%s", 
                     (   self.var_dep.get(),
@@ -526,7 +525,7 @@ class Student:
                         self.var_address.get(),
                         self.var_teacher.get(),
                         self.var_radio1.get(),
-                        self.var_std_id.get()==id+1
+                        self.var_std_id.get()
                     )
                 )
                 conn.commit()
