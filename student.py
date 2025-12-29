@@ -62,20 +62,20 @@ class Student:
             f_lbl.place(x=1000, y=0, width=500, height=130)
 
         # Background Image 
-        self.photoimg = load_image("people.jpg", 1530, 620)
+        self.photoimg = load_image("background.png", 1530, 620)
         if self.photoimg:
             bg_img = Label(self.root, image=self.photoimg)
             bg_img.place(x=0, y=130, width=1630, height=620)
 
         title_lbl=Label(bg_img,text="STUDENT MANAGEMENT SYSTEM",font=("times new roman",33,"bold"),bg="white",fg="blue")
-        title_lbl.place(x=0,y=0,width=1400,height=45)
+        title_lbl.place(x=0,y=0,width=1560,height=45)
 
         main_frame=Frame(bg_img,bd=2,bg="white")
-        main_frame.place(x=20,y=55,width=1320,height=500)
+        main_frame.place(x=120,y=50,width=1320,height=565)
         
         #Left lable frame
         Left_frame=LabelFrame(main_frame,bd=2,bg="white",relief=RIDGE,text="Student Details",font=("times new roman",12,"bold"))
-        Left_frame.place(x=10,y=10,width=640,height=480)
+        Left_frame.place(x=10,y=10,width=640,height=550)
 
         # Image inside student details
         self.photoimgleft = load_image("download.jpg", 720, 130)
@@ -85,7 +85,7 @@ class Student:
 
         #current course information
         current_course_frame=LabelFrame(Left_frame,bd=2,bg="white",relief=RIDGE,text="Current course information",font=("times new roman",12,"bold"))
-        current_course_frame.place(x=10,y=135,width=620,height=120)
+        current_course_frame.place(x=10,y=135,width=620,height=150)
 
         # Department
         dep_label=Label(current_course_frame,text="Department",font=("times new roman",12,"bold"),bg="white")
@@ -123,7 +123,7 @@ class Student:
 
         #student information
         student_frame=LabelFrame(Left_frame,bd=2,bg="white",relief=RIDGE,text="Student information",font=("times new roman",12,"bold"))
-        student_frame.place(x=10,y=260,width=620,height=180)
+        student_frame.place(x=10,y=260,width=620,height=190)
 
         # Student ID
         studentid_label=Label(student_frame,text="Student ID",font=("times new roman",12 ,"bold"),bg="white")
@@ -141,9 +141,6 @@ class Student:
         # Class Division
         classdiv_label=Label(student_frame,text="Class Division",font=("times new roman",12 ,"bold"),bg="white")
         classdiv_label.grid(row=1,column=0,padx=10,pady=2,sticky=W)    
-
-        # classdiv_entry=ttk.Entry(student_frame,textvariable=self.var_div,width=20,font=("times new roman",12 ,"bold"))
-        # classdiv_entry.grid(row=1,column=1,padx=10,pady=2,sticky=W)
 
         classdiv_combo=ttk.Combobox(student_frame,textvariable=self.var_div,font=("times new roman",12,"bold"),state="readonly",width=18)
         classdiv_combo.grid(row=1,column=1,padx=10,pady=2,sticky=W)
@@ -210,7 +207,7 @@ class Student:
  
         #button frame
         btn_frame=Frame(Left_frame,bd=2,relief=RIDGE,bg="white")
-        btn_frame.place(x=0,y=0,width=620,height=80) 
+        btn_frame.place(x=0,y=450,width=625,height=80) 
         
         # Save button
         save_btn=Button(btn_frame,text="Save",command=self.add_data,width=16,font=("times new roman",12 ,"bold"),bg="blue",fg="white")
