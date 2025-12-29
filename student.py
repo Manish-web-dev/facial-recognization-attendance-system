@@ -4,6 +4,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk  
 import mysql.connector 
 import cv2
+import os
 
 class Student:
     
@@ -11,6 +12,19 @@ class Student:
         self.root = root
         self.root.geometry("1530x790+0+0")
         self.root.title("face Recognition System")
+        
+        # Resolve Images directory
+        self.image_dir = os.path.join(os.path.dirname(__file__), "Images")
+        
+        def load_image(filename, width, height):
+            """Load and resize image from Images folder"""
+            img_path = os.path.join(self.image_dir, filename)
+            if not os.path.exists(img_path):
+                print(f"Warning: Image not found at {img_path}")
+                return None
+            img = Image.open(img_path)
+            img = img.resize((width, height), Image.Resampling.LANCZOS)
+            return ImageTk.PhotoImage(img)
 
         ########## Variables #############
         
@@ -31,41 +45,27 @@ class Student:
         self.var_teacher=StringVar()
 
 
-        # Load and resize image  first image
-        img1 = Image.open(r"D:\BACHELOR\college project\Facial Recognization system\images\download.jpg")
-        img1 = img1.resize((500, 130), Image.Resampling.LANCZOS)
-        self.photoimg1 = ImageTk.PhotoImage(img1)
+# Load and display header images
+        self.photoimg1 = load_image("download.jpg", 500, 130)
+        if self.photoimg1:
+            f_lbl = Label(self.root, image=self.photoimg1)
+            f_lbl.place(x=0, y=0, width=500, height=130)
         
-        # Display first image using Label widget
-        f_lbl = Label(self.root, image=self.photoimg1)
-        f_lbl.place(x=0, y=0, width=500, height=130)
-        
-        # Load and resize image second image
-        img2 = Image.open(r"D:\BACHELOR\college project\Facial Recognization system\images\people.jpg")
-        img2 = img2.resize((500, 130), Image.Resampling.LANCZOS)
-        self.photoimg2 = ImageTk.PhotoImage(img2)
-        
-        # Display second image using Label widget
-        f_lbl = Label(self.root, image=self.photoimg2)
-        f_lbl.place(x=500, y=0, width=500, height=130)
+        self.photoimg2 = load_image("people.jpg", 500, 130)
+        if self.photoimg2:
+            f_lbl = Label(self.root, image=self.photoimg2)
+            f_lbl.place(x=500, y=0, width=500, height=130)
 
-        # Load and resize image third image
-        img3 = Image.open(r"D:\BACHELOR\college project\Facial Recognization system\images\camera.jpg")
-        img3 = img3.resize((500, 130), Image.Resampling.LANCZOS)
-        self.photoimg3 = ImageTk.PhotoImage(img3)
-        
-        # Display third image using Label widget
-        f_lbl = Label(self.root, image=self.photoimg3)
-        f_lbl.place(x=1000, y=0, width=500, height=130)
+        self.photoimg3 = load_image("camera.jpg", 500, 130)
+        if self.photoimg3:
+            f_lbl = Label(self.root, image=self.photoimg3)
+            f_lbl.place(x=1000, y=0, width=500, height=130)
 
-        
-         # Background Image 
-        imgbg = Image.open(r"D:\BACHELOR\college project\Facial Recognization system\images\people.jpg")
-        imgbg = imgbg.resize((1530, 620), Image.Resampling.LANCZOS)
-        self.photoimg = ImageTk.PhotoImage(imgbg)
-        
-        bg_img = Label(self.root, image=self.photoimg)
-        bg_img.place(x=0, y=130, width=1630, height=620)
+        # Background Image 
+        self.photoimg = load_image("people.jpg", 1530, 620)
+        if self.photoimg:
+            bg_img = Label(self.root, image=self.photoimg)
+            bg_img.place(x=0, y=130, width=1630, height=620)
 
         title_lbl=Label(bg_img,text="STUDENT MANAGEMENT SYSTEM",font=("times new roman",33,"bold"),bg="white",fg="blue")
         title_lbl.place(x=0,y=0,width=1400,height=45)
@@ -78,13 +78,10 @@ class Student:
         Left_frame.place(x=10,y=10,width=640,height=480)
 
         # Image inside student details
-        imgleft = Image.open(r"D:\BACHELOR\college project\Facial Recognization system\images\download.jpg")
-        imgleft = imgleft.resize((720, 130), Image.Resampling.LANCZOS)
-        self.photoimgleft = ImageTk.PhotoImage(imgleft)
-        
-       
-        f_lbl = Label(Left_frame, image=self.photoimgleft)
-        f_lbl.place(x=0, y=0, width=720, height=130)
+        self.photoimgleft = load_image("download.jpg", 720, 130)
+        if self.photoimgleft:
+            f_lbl = Label(Left_frame, image=self.photoimgleft)
+            f_lbl.place(x=0, y=0, width=720, height=130)
 
         #current course information
         current_course_frame=LabelFrame(Left_frame,bd=2,bg="white",relief=RIDGE,text="Current course information",font=("times new roman",12,"bold"))
@@ -249,13 +246,10 @@ class Student:
         Right_frame.place(x=660,y=10,width=640,height=480)
 
         # Image inside student details
-        img_right = Image.open(r"D:\BACHELOR\college project\Facial Recognization system\images\download.jpg")
-        img_right = img_right.resize((720, 130), Image.Resampling.LANCZOS)
-        self.photoimgright = ImageTk.PhotoImage(img_right)
-        
-       
-        f_lbl = Label(Right_frame, image=self.photoimgright)
-        f_lbl.place(x=0, y=0, width=720, height=130)
+        self.photoimgright = load_image("download.jpg", 720, 130)
+        if self.photoimgright:
+            f_lbl = Label(Right_frame, image=self.photoimgright)
+            f_lbl.place(x=0, y=0, width=720, height=130)
 
         # Search System
         search_frame=LabelFrame(Right_frame,bd=2,bg="white",relief=RIDGE,text="Search System",font=("times new roman",12,"bold"))
